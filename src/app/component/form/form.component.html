@@ -1,0 +1,148 @@
+
+<form class="form-input" [formGroup]="flightForm">
+
+  <div class="form-input-div">
+    <h1>Book a Flight</h1>
+
+    <div class="fullName-box">
+    <div class="fullName-div">
+      <label> Full Name : </label> <br/>
+      <input [ngModel]="flight.fullName" formControlName="FullName" type="text" placeholder="Enter Full Name">
+      <div style="color: red;" *ngIf="flightForm.get('FullName')?.errors?.['required']">**Name Required</div>
+    </div>
+    </div>
+
+    <div class="from-to-box">
+    <div class="from-box">
+      <label> From :</label> <br/>
+      <select class="select-from-box" formControlName="From" [ngModel]="flight.from">
+        <option [ngValue]=null disabled> What would you going from? </option>
+        <option class="option" *ngFor="let fl of fromList" [ngValue]="fl.value" >
+          {{fl.name}}
+        </option>
+
+      </select>
+      <span style="color: red;" *ngIf="flight.from==null">**Required</span>
+    </div>
+
+    <div class="to-box">
+      <label> To :</label> <br/>
+      <select class="select-to-box" formControlName="To" [ngModel]="flight.to">
+        <option [ngValue]=null  disabled> What would you going to? </option>
+        <option class="option" *ngFor="let tl of toList" [ngValue]="tl.value">
+          {{tl.name}}
+        </option>
+
+      </select>
+      <span style="color: red;" *ngIf="flight.to==null">**Required</span>
+    </div>
+    </div>
+
+    <div class="type-date-box">
+
+      <div class="type-box">
+      <div class="type-div">
+        <label> Trip Type:</label> <br/>
+        <input  type="radio" id="option-1" value="one_way"  formControlName="Type" [ngModel]="flight.type" >One-Way<br/>
+        <input  type="radio" id="option-2" value="return"  formControlName="Type" [ngModel]="flight.type" >Return<br/>
+      </div>
+      </div>
+
+<!--
+    <div>
+      <label> Departure:</label>
+      <input  type="date"  formControlName="Departure" [ngModel]="flight.departure" >
+
+      <label> Arrival:</label>
+      <input  type="date"  formControlName="Arrival" [ngModel]="flight.arrival" >
+      <br/>
+    </div> -->
+
+
+
+
+      <div class="departure-box">
+      <label> Departure:</label> <br/>
+      <mat-form-field appearance="fill" >
+        <mat-label>Choose date departure</mat-label>
+        <input matInput [matDatepicker]="Departure" formControlName="Departure" [ngModel]="flight.departure" >
+        <mat-datepicker-toggle matSuffix [for]="Departure"></mat-datepicker-toggle>
+        <mat-datepicker #Departure></mat-datepicker>
+      </mat-form-field>
+      </div>
+
+      <div class="arrival-box">
+      <label> Arrival:</label> <br/>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose date Arrival</mat-label>
+        <input  matInput [matDatepicker]="Arrival" formControlName="Arrival" [ngModel]="flight.arrival" >
+        <mat-datepicker-toggle matSuffix [for]="Arrival"></mat-datepicker-toggle>
+        <mat-datepicker #Arrival></mat-datepicker>
+      </mat-form-field>
+      </div>
+
+
+
+    </div>
+
+    <div class="passenger-box">
+
+      <div class="adults-box">
+        <label> Adults:</label> <br/>
+        <input [ngModel]="flight.adults" formControlName="Adults" type="number" min="0" step="1" placeholder="Enter Number of Adults">
+      </div>
+
+      <div class="children-box">
+        <label> Children:</label> <br/>
+        <input [ngModel]="flight.children" formControlName="Children" type="number" placeholder="Enter Number of Children">
+      </div>
+
+      <div class="infants-box">
+        <label> Infants:</label> <br/>
+        <input [ngModel]="flight.infants" formControlName="Infants" type="number" placeholder="Enter Number of Infants">    </div>
+      </div>
+
+      <button class='button-1' (click)="onSubmit(flightForm)" name="button" type="submit" value="submit"> Submit </button>
+
+    </div>
+
+
+
+</form>
+
+<div class="flight-record">
+  <div class="flight-table">
+    <h1>Flight List</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Trip Type</th>
+          <th>Departure</th>
+          <th>Arrival</th>
+          <th>Adult</th>
+          <th>Children</th>
+          <th>Infant</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let list of flightList">
+          <td>{{list.fullName}}</td>
+          <td>{{list.from}}</td>
+          <td>{{list.to}}</td>
+          <td>{{list.type}}</td>
+          <td>{{list.departure}}</td>
+          <td>{{list.arrival}}</td>
+          <td>{{list.adults}}</td>
+          <td>{{list.children}}</td>
+          <td>{{list.infants}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+<br>
